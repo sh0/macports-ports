@@ -1,0 +1,81 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134561 2015-03-30 08:46:40Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                cegui
+version             0.8.5
+revision            1
+categories          devel
+platforms           darwin
+maintainers         ryandesign openmaintainer
+
+description         Crazy Eddie’s GUI System
+
+long_description    ${description} is a free library for game developers \
+                    that provides windowing and widgets for graphics APIs \
+                    and engines where such functionality is not natively \
+                    available, or is severely lacking.
+
+homepage            http://www.cegui.org.uk/
+
+# trunk
+#master_sites        https://bitbucket.org/cegui/cegui/get/
+#distname            default
+#use_zip             yes
+#checksums           rmd160 06509c9a1f81a4c141a3db6e448c33cfb2b8816f \
+#                    sha256 8a87a4dc164417436299ee479aaa3bb30502fea7318fb3de894452a08d943b55
+
+# 0.8.x (f2a53eda5e48)
+master_sites        https://bitbucket.org/cegui/cegui/get/
+distname            v0-8
+worksrcdir          cegui-cegui-f2a53eda5e48
+use_bzip2           yes
+checksums           rmd160 1b74f986eea9973ee0ae80e153fe869a9a897b0e \
+                    sha256 a8c4c3e08591b1263f8f5f2880ca45f382e33bfcde6f7c7c0a4aff9641660353
+patchfiles          patch-0.8.x-f2a53eda5e48-pkgconfig-files.diff
+
+# 0.8.4
+#master_sites        sourceforge:project/crayzedsgui/CEGUI%20Mk-2/0.8
+#distname            cegui-${version}
+#extract.suffix      .tar.bz2
+#checksums           rmd160  dd5ad85f05b9bc9afc1c5c2f33e46367b2ffc09d \
+#                    sha256  b5fcbd548b83045e92c4da413928113be77ebee0117368925e1904b3b957a388
+#patchfiles          patch-0.8.4-pkgconfig-files.diff
+
+depends_build       port:pkgconfig \
+                    port:cmake
+
+depends_lib         port:expat \
+                    port:freeglut \
+                    port:freeimage \
+                    port:freetype \
+                    port:libdevil \
+                    port:libxml2 \
+                    port:pcre \
+                    port:tinyxml \
+                    port:xorg-libice \
+                    port:xorg-libsm \
+                    port:glm
+
+configure           { system "cd ${worksrcpath} && cmake ${configure.args} ${worksrcpath}" }
+configure.args      -DCMAKE_INSTALL_PREFIX:PATH=${prefix} \
+                    -DCEGUI_APPLE_DYLIB_INSTALL_PATH:PATH=${prefix}/lib \
+                    -DCEGUI_BUILD_IMAGECODEC_CORONA=OFF \
+                    -DCEGUI_BUILD_IMAGECODEC_DEVIL=ON \
+                    -DCEGUI_BUILD_IMAGECODEC_FREEIMAGE=ON \
+                    -DCEGUI_BUILD_IMAGECODEC_PVR=OFF \
+                    -DCEGUI_BUILD_IMAGECODEC_SILLY=OFF \
+                    -DCEGUI_BUILD_IMAGECODEC_STB=OFF \
+                    -DCEGUI_BUILD_IMAGECODEC_TGA=OFF \
+                    -DCEGUI_BUILD_LUA_MODULE=OFF \
+                    -DCEGUI_BUILD_PYTHON_MODULES=OFF \
+                    -DCEGUI_BUILD_RENDERER_IRRLICHT=OFF \
+                    -DCEGUI_BUILD_RENDERER_NULL=ON \
+                    -DCEGUI_BUILD_RENDERER_OGRE=OFF \
+                    -DCEGUI_BUILD_RENDERER_OPENGL=ON \
+                    -DCEGUI_BUILD_RENDERER_OPENGL3=ON \
+                    -DCEGUI_BUILD_XMLPARSER_RAPIDXML=OFF \
+                    -DCEGUI_BUILD_XMLPARSER_TINYXML=ON \
+                    -DCEGUI_BUILD_XMLPARSER_XERCES=OFF \
+                    -DCEGUI_SAMPLES_ENABLED=OFF
