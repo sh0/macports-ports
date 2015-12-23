@@ -1,0 +1,10 @@
+--- cegui/src/ScriptModules/Python/bindings/output/CEGUIOpenGLRenderer/OpenGLViewportTarget.pypp.cpp.ori	2015-11-29 13:36:05.000000000 +0200
++++ cegui/src/ScriptModules/Python/bindings/output/CEGUIOpenGLRenderer/OpenGLViewportTarget.pypp.cpp	2015-12-23 08:55:33.000000000 +0200
+@@ -3,6 +3,7 @@
+ #include "boost/python.hpp"
+ #include "generators/include/python_CEGUIOpenGLRenderer.h"
+ #include "OpenGLViewportTarget.pypp.hpp"
++#include "../../../../../RendererModules/OpenGL/RenderTarget.inl"
+ 
+ namespace bp = boost::python;
+ 

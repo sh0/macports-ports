@@ -1,0 +1,19 @@
+--- cegui/src/ScriptModules/Python/bindings/generators/include/python_CEGUI.h.ori	2015-11-29 13:36:05.000000000 +0200
++++ cegui/src/ScriptModules/Python/bindings/generators/include/python_CEGUI.h	2015-12-23 08:59:34.000000000 +0200
+@@ -32,6 +32,16 @@
+     }
+ }
+ 
++namespace boost {
++    namespace python {
++        template <class D>
++        inline object make_setter(D const& x)
++        {
++            return detail::make_setter(x, default_call_policies(), is_member_pointer<D>(), 0);
++        }
++    }
++}
++
+ namespace CEGUI
+ {
+ 

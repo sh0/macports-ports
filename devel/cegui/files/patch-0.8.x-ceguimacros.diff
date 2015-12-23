@@ -1,0 +1,27 @@
+--- cmake/CEGUIMacros.cmake.ori	2015-11-29 13:36:05.000000000 +0200
++++ cmake/CEGUIMacros.cmake	2015-12-23 09:44:23.000000000 +0200
+@@ -445,7 +445,7 @@
+         set_target_properties(${PYTHON_MODULE_NAME} PROPERTIES SUFFIX ".pyd")
+     endif()
+ 
+-    if (NOT APPLE AND CEGUI_INSTALL_WITH_RPATH)
++    if (AND CEGUI_INSTALL_WITH_RPATH)
+         set_target_properties(${PYTHON_MODULE_NAME} PROPERTIES
+             INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CEGUI_LIB_INSTALL_DIR}"
+         )
+@@ -505,7 +505,7 @@
+         add_definitions( -DBOOST_TEST_DYN_LINK )
+     endif()
+ 
+-    if (NOT APPLE AND CEGUI_INSTALL_WITH_RPATH)
++    if (CEGUI_INSTALL_WITH_RPATH)
+         set_target_properties(${CEGUI_TARGET_NAME} PROPERTIES
+             INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CEGUI_LIB_INSTALL_DIR}"
+         )
+@@ -688,4 +688,4 @@
+             message(SEND_ERROR "${_DEFAULTVAR} is set to ${_MODNAME} but this module is not going to be built (see ${_BUILDVAR})")
+         endif()
+     endif()
+-endmacro()
+\ No newline at end of file
++endmacro()

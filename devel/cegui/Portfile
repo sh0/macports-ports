@@ -33,7 +33,11 @@ worksrcdir          cegui-cegui-f2a53eda5e48
 use_bzip2           yes
 checksums           rmd160 1b74f986eea9973ee0ae80e153fe869a9a897b0e \
                     sha256 a8c4c3e08591b1263f8f5f2880ca45f382e33bfcde6f7c7c0a4aff9641660353
-patchfiles          patch-0.8.x-f2a53eda5e48-pkgconfig-files.diff
+patchfiles          patch-0.8.x-pkgconfig-files.diff \
+                    patch-0.8.x-pypp-makesetter.diff \
+                    patch-0.8.x-pypp-texturetarget.diff \
+                    patch-0.8.x-pypp-viewporttarget.diff \
+                    patch-0.8.x-ceguimacros.diff
 
 # 0.8.4
 #master_sites        sourceforge:project/crayzedsgui/CEGUI%20Mk-2/0.8
@@ -61,6 +65,7 @@ depends_lib         port:expat \
 configure           { system "cd ${worksrcpath} && cmake ${configure.args} ${worksrcpath}" }
 configure.args      -DCMAKE_INSTALL_PREFIX:PATH=${prefix} \
                     -DCEGUI_APPLE_DYLIB_INSTALL_PATH:PATH=${prefix}/lib \
+                    -DCEGUI_INSTALL_WITH_RPATH=ON \
                     -DCEGUI_BUILD_IMAGECODEC_CORONA=OFF \
                     -DCEGUI_BUILD_IMAGECODEC_DEVIL=ON \
                     -DCEGUI_BUILD_IMAGECODEC_FREEIMAGE=ON \
@@ -69,7 +74,7 @@ configure.args      -DCMAKE_INSTALL_PREFIX:PATH=${prefix} \
                     -DCEGUI_BUILD_IMAGECODEC_STB=OFF \
                     -DCEGUI_BUILD_IMAGECODEC_TGA=OFF \
                     -DCEGUI_BUILD_LUA_MODULE=OFF \
-                    -DCEGUI_BUILD_PYTHON_MODULES=OFF \
+                    -DCEGUI_BUILD_PYTHON_MODULES=ON \
                     -DCEGUI_BUILD_RENDERER_IRRLICHT=OFF \
                     -DCEGUI_BUILD_RENDERER_NULL=ON \
                     -DCEGUI_BUILD_RENDERER_OGRE=OFF \
