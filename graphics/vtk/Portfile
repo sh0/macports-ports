@@ -39,7 +39,8 @@ configure.args-append \
                     -DBUILD_EXAMPLES:BOOL=OFF \
                     -DVTK_WRAP_PYTHON:BOOL=OFF \
                     -DVTK_WRAP_JAVA:BOOL=OFF \
-                    -DVTK_WRAP_TCL:BOOL=OFF
+                    -DVTK_WRAP_TCL:BOOL=OFF \
+                    -DVTK_RENDERING_BACKEND:STRING=OpenGL
 
 # As proposed at #46890
 if {${os.major} <= 10} {
