@@ -1,0 +1,34 @@
+--- ../AntTweakBar_116_original/src/Makefile.osx	2013-03-21 16:54:16.000000000 +0200
++++ src/Makefile.osx	2016-03-25 17:41:11.000000000 +0200
+@@ -12,10 +12,13 @@
+ #LFLAGS		= 
+ #OUT_DIR	= ../lib/debug
+ 
++PREFIX		= /usr/local
++DESTDIR		= 
++
+ #BASE		= /Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks
+ CXX      	= g++
+ CXXFLAGS 	= $(CXXCFG) -Wall -fPIC -fno-strict-aliasing -D_MACOSX -ObjC++  -D__PLACEMENT_NEW_INLINE
+-INCPATH  	= -I../include -I/usr/local/include -I/usr/X11R6/include -I/usr/include
++INCPATH		= -I../include -I/usr/include -I$(BASE)/OpenGL.framework/Headers/ -I$(BASE)/GLUT.framework/Headers/ -I$(BASE)/AppKit.framework/Headers/^
+ #-I$(BASE)/OpenGL.framework/Headers/ -I$(BASE)/GLUT.framework/Headers/ -I$(BASE)/AppKit.framework/Headers/
+ LINK     	= g++
+ LIBS 		= -framework OpenGL -framework GLUT -framework AppKit
+@@ -60,10 +63,15 @@
+ #	@echo "==== Make dependencies ====="
+ #	makedepend -Y
+ #	makedepend -a -Y -- $(CXXFLAGS) $(INCPATH) -- $(SRC_FILES) $(NO_STDERR)
++install: $(TARGET) Makefile
++	mkdir -p $(DESTDIR)$(PREFIX)/lib/
++	$(COPY) $(OUT_DIR)/lib$(TARGET)$(SO_EXT) $(DESTDIR)$(PREFIX)/lib/
++	mkdir -p $(DESTDIR)$(PREFIX)/include/
++	$(COPY) ../include/AntTweakBar.h $(DESTDIR)$(PREFIX)/include/
+ 
+ $(TARGET): $(OBJS)
+ 	@echo "===== Link $@ ====="
+-	$(LINK) $(LFLAGS) -dynamiclib -Wl,-undefined -Wl,dynamic_lookup  -o $(OUT_DIR)/lib$(TARGET)$(SO_EXT) $(OBJS) $(LIBS)
++	$(LINK) $(LFLAGS) -dynamiclib -Wl,-undefined -Wl,dynamic_lookup  -o $(OUT_DIR)/lib$(TARGET)$(SO_EXT) $(OBJS) $(LIBS) -install_name $(PREFIX)/lib/lib$(TARGET)$(SO_EXT)
+ 	$(AR) $(OUT_DIR)/lib$(TARGET)$(AR_EXT) $(OBJS)
+ 
+ .cpp.o:

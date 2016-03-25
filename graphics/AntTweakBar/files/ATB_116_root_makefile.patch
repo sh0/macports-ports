@@ -1,0 +1,8 @@
+--- ../AntTweakBar_116_original/Makefile	2016-03-25 17:53:11.000000000 +0200
++++ Makefile	2016-03-25 17:02:16.000000000 +0200
+@@ -0,0 +1,5 @@
++all:
++	make -f Makefile.osx -C src all
++
++install:
++	make -f Makefile.osx -C src install
